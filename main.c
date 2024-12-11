@@ -7,7 +7,7 @@ int main() {
     struct Libro biblioteca[20];
     int cantidadLibros = 0, opcion;
  
-    // Inicializar la biblioteca con valores predeterminados
+    
     for (int i = 0; i < 20; i++) {
         biblioteca[i].id = 0;
         strcpy(biblioteca[i].titulo, "");
