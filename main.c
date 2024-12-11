@@ -1,39 +1,50 @@
 #include <stdio.h>
+#include <string.h>
 #include "funciones.h"
-
-int main (int argc, char *argv[]) {
-
-    struct Libro libros[20];
-    int opc;
-    int i=0;
-    do{
-    opc = menu();
-    switch (opc)
-    {
-        case 1:
-            registrarLibros(libros, i);
-            break;
-        case 2:
-            mostrarLibros(libros);
-            break;
-        case 3:
-            int id;
-            printf("Ingrese el id del libro a buscar: ");
-            scanf("%d", &id);
-            buscarLibroId(libros, id);
-            i++;
-            break;
-        case 4:
-            char titulo[100];
-            printf("Ingrese el titulo del libro a buscar: ");
-            scanf("%s", titulo);
-            buscarLibroTitulo(libros, titulo);
-            break;
-        
-
+ 
+ 
+int main() {
+    struct Libro biblioteca[20];
+    int cantidadLibros = 0, opcion;
+ 
+    // Inicializar la biblioteca con valores predeterminados
+    for (int i = 0; i < 20; i++) {
+        biblioteca[i].id = 0;
+        strcpy(biblioteca[i].titulo, "");
+        strcpy(biblioteca[i].autor, "");
+        biblioteca[i].anio = 0;
+        strcpy(biblioteca[i].estado, "Disponible");
     }
-    }while(opc != 7);
-
-
+ 
+    do {
+        opcion = mostrarMenu();
+        switch (opcion) {
+            case 1:
+                agregarLibro(biblioteca, cantidadLibros);
+                cantidadLibros++;
+                break;
+            case 2:
+                mostrarListaLibros(biblioteca, cantidadLibros);
+                break;
+            case 3:
+                buscarPorId(biblioteca);
+                break;
+            case 4:
+                buscarPorTitulo(biblioteca);
+                break;
+            case 5:
+                actualizarEstadoLibro(biblioteca);
+                break;
+            case 6:
+                cantidadLibros = eliminarLibro(biblioteca, cantidadLibros);
+                break;
+            case 7:
+                printf("Adios!");
+                break;
+            default:
+                printf("Opcion no valida. Intentalo de nuevo.\n");
+        }
+    } while (opcion != 7);
+ 
     return 0;
 }
